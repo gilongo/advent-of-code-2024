@@ -1,16 +1,16 @@
 package main
 
 import (
+	"advent-of-code-2024/utils"
 	"bytes"
 	"fmt"
-	"os"
 	"runtime"
 	"sort"
 	"strconv"
 )
 
 func main() {
-	data := readInputFile("day1/input.txt")
+	data := utils.ReadInputFile("day1/input.txt")
 
 	var firstList []int
 	var secondList []int
@@ -108,12 +108,4 @@ func convertDataToSlices(data []byte) ([]int, []int) {
 	}
 
 	return firstList, secondList
-}
-
-func readInputFile(path string) []byte {
-	data, err := os.ReadFile(path)
-	if err != nil {
-		panic(err)
-	}
-	return data
 }
