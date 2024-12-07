@@ -4,7 +4,6 @@ import (
 	"advent-of-code-2024/utils"
 	"bytes"
 	"fmt"
-	"runtime"
 	"sort"
 	"strconv"
 )
@@ -60,48 +59,28 @@ func calculateSimilarityScore(firstList []int, secondList []int) int {
 	return similarityScore
 }
 
-func abs(x int) int {
-	if x < 0 {
-		return x * -1
-	}
-	return x
-}
-
 func calculateDistanceSlices(x []int, y []int) int {
 	listDiff := 0
 	for i := 0; i < len(x); i++ {
-		listDiff += abs(x[i] - y[i])
+		listDiff += utils.Abs(x[i] - y[i])
 	}
 
 	return listDiff
 }
 
-func check(e error) {
-	if e != nil {
-		panic(e)
-	}
-}
-
 func convertDataToSlices(data []byte) ([]int, []int) {
 	var firstList []int
 	var secondList []int
-	var breakLine string
 
-	if runtime.GOOS == "windows" {
-		breakLine = "\r\n"
-	} else {
-		breakLine = "\n"
-	}
-
-	parts := bytes.Split(data, []byte(breakLine))
+	parts := utils.SplitData(data, utils.GetBreakLineToken())
 	for _, part := range parts {
 		part1, part2, _ := bytes.Cut(part, []byte("   "))
 
 		intPart1, err := strconv.Atoi(string(part1))
-		check(err)
+		utils.CheckErr(err)
 
 		intPart2, err := strconv.Atoi(string(part2))
-		check(err)
+		utils.CheckErr(err)
 
 		firstList = append(firstList, intPart1)
 		secondList = append(secondList, intPart2)
