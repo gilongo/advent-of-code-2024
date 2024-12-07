@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"os"
+	"runtime"
 	"sort"
 	"strconv"
 )
@@ -27,10 +28,10 @@ func main() {
 	})
 
 	// calculate distance between points of two lists
-	fmt.Println("Distance: ", calculateDistanceSlices(firstList, secondList))
+	fmt.Println("Distance:", calculateDistanceSlices(firstList, secondList))
 
 	// calculate similarity score
-	fmt.Println("Similarity score: ", calculateSimilarityScore(firstList, secondList))
+	fmt.Println("Similarity score:", calculateSimilarityScore(firstList, secondList))
 }
 
 func calculateSimilarityScore(firstList []int, secondList []int) int {
@@ -84,8 +85,15 @@ func check(e error) {
 func convertDataToSlices(data []byte) ([]int, []int) {
 	var firstList []int
 	var secondList []int
+	var breakLine string
 
-	parts := bytes.Split(data, []byte("\r\n"))
+	if runtime.GOOS == "windows" {
+		breakLine = "\r\n"
+	} else {
+		breakLine = "\n"
+	}
+
+	parts := bytes.Split(data, []byte(breakLine))
 	for _, part := range parts {
 		part1, part2, _ := bytes.Cut(part, []byte("   "))
 
