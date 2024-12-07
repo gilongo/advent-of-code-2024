@@ -45,6 +45,7 @@ func main() {
 	}
 
 	fmt.Println("Safe reports:", safeReports)
+	fmt.Println("More Safer reports:", Part2())
 }
 
 func convertDataToReportLists(data []byte) [][]int {
