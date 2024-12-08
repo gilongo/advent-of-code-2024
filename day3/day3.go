@@ -31,6 +31,7 @@ func main() {
 	}
 
 	fmt.Printf("Result: %d\n", result)
+	Day3()
 }
 
 func mul(a, b int) int {
